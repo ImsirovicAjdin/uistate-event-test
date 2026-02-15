@@ -43,18 +43,39 @@ runTests({
 ### `createEventTest(initialState)`
 Creates a test harness wrapping an EventState store.
 
-- **`trigger(path, value)`** — set state and chain
-- **`assertPath(path, expected)`** — assert exact value
-- **`assertType(path, expectedType)`** — assert `typeof`
-- **`assertShape(path, shape)`** — assert object shape
-- **`assertArrayOf(path, elementShape)`** — assert array element shape
-- **`assertArrayLength(path, length)`** — assert array length
-- **`assertEventFired(path, times)`** — assert event count
-- **`getEventLog()`** — get full event log
-- **`getTypeAssertions()`** — get type assertions (for code generation)
+- **`trigger(path, value)`**: set state and chain
+- **`assertPath(path, expected)`**: assert exact value
+- **`assertType(path, expectedType)`**: assert `typeof`
+- **`assertShape(path, shape)`**: assert object shape
+- **`assertArrayOf(path, elementShape)`**: assert array element shape
+- **`assertArrayLength(path, length)`**: assert array length
+- **`assertEventFired(path, times)`**: assert event count
+- **`getEventLog()`**: get full event log
+- **`getTypeAssertions()`**: get type assertions (for code generation)
 
 ### `test(name, fn)` / `runTests(tests)`
 Simple test runner with console output.
+
+## Testing
+
+Two-layer testing architecture:
+
+**`self-test.js`** — Zero-dependency self-test (40 assertions). Runs automatically on `npm install` via `postinstall`. Verifies `createEventTest`, all assertion methods, `test()`, and `runTests()` on the consumer's machine.
+
+```bash
+node self-test.js
+```
+
+**`tests/event-test.test.js`** — Integration tests using `@uistate/event-test` itself (25 tests). The meta-test: eventTest testing eventTest.
+
+```bash
+npm test
+```
+
+| Suite | Assertions | Dependencies |
+|-------|-----------|-------------|
+| `self-test.js` | 40 | `@uistate/core` only |
+| `tests/event-test.test.js` | 25 | `@uistate/event-test` |
 
 ## License
 

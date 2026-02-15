@@ -1,9 +1,14 @@
 {
   "name": "@uistate/event-test",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Event-sequence testing for @uistate/core with TDD-style assertions and type extraction",
   "type": "module",
   "main": "index.js",
+  "scripts": {
+    "postinstall": "node self-test.js",
+    "test": "node tests/event-test.test.js",
+    "self-test": "node self-test.js"
+  },
   "exports": {
     ".": "./index.js",
     "./eventTest": "./eventTest.js"
@@ -11,6 +16,7 @@
   "files": [
     "index.js",
     "eventTest.js",
+    "self-test.js",
     "LICENSE.md"
   ],
   "license": "SEE LICENSE IN LICENSE.md",

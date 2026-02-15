@@ -19,7 +19,7 @@ You may NOT:
 
 ## Commercial Licensing
 
-For commercial use, please contact: your@email.com
+For commercial use, please contact: [LinkedIn](https://www.linkedin.com/in/ajdin-imsirovic)
 
 ---
 

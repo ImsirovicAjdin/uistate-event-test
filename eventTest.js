@@ -1,26 +1,26 @@
 /**
  * eventTest.js - Event-Sequence Testing for UIstate
- * 
+ *
  * Copyright (c) 2025 Ajdin Imsirovic
- * 
+ *
  * This file is licensed under a PROPRIETARY LICENSE.
- * 
+ *
  * Permission is hereby granted to USE this software for:
  * - Personal projects
  * - Open-source projects
  * - Educational purposes
- * 
+ *
  * RESTRICTIONS:
- * - Commercial use requires a separate license (contact: your@email.com)
+ * - Commercial use requires a separate license (contact: linkedin.com/in/ajdin-imsirovic)
  * - Modification and redistribution of this file are NOT permitted
  * - This file may not be included in derivative works without permission
- * 
+ *
  * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND.
- * 
- * For commercial licensing inquiries: your@email.com
- * 
+ *
+ * For commercial licensing inquiries: linkedin.com/in/ajdin-imsirovic
+ *
  * eventTest.js - Event-Sequence Testing for EventState
- * 
+ *
  * Provides TDD-style testing with type extraction capabilities
  */
 
@@ -59,11 +59,11 @@ export function createEventTest(initialState = {}) {
     assertType(path, expectedType) {
       const actual = store.get(path);
       const actualType = typeof actual;
-      
+
       if (actualType !== expectedType) {
         throw new Error(`Expected ${path} to be type ${expectedType}, got ${actualType}`);
       }
-      
+
       // Store for type generation
       typeAssertions.push({ path, type: expectedType });
       return this;
@@ -72,16 +72,16 @@ export function createEventTest(initialState = {}) {
     // Assert array with element shape (for type generation)
     assertArrayOf(path, elementShape) {
       const actual = store.get(path);
-      
+
       if (!Array.isArray(actual)) {
         throw new Error(`Expected ${path} to be an array, got ${typeof actual}`);
       }
-      
+
       // Validate first element matches shape (if array not empty)
       if (actual.length > 0) {
         validateShape(actual[0], elementShape, path);
       }
-      
+
       // Store for type generation
       typeAssertions.push({ path, type: 'array', elementShape });
       return this;
@@ -90,13 +90,13 @@ export function createEventTest(initialState = {}) {
     // Assert object shape (for type generation)
     assertShape(path, objectShape) {
       const actual = store.get(path);
-      
+
       if (typeof actual !== 'object' || actual === null || Array.isArray(actual)) {
         throw new Error(`Expected ${path} to be an object, got ${typeof actual}`);
       }
-      
+
       validateShape(actual, objectShape, path);
-      
+
       // Store for type generation
       typeAssertions.push({ path, type: 'object', shape: objectShape });
       return this;
@@ -105,15 +105,15 @@ export function createEventTest(initialState = {}) {
     // Assert array length
     assertArrayLength(path, expectedLength) {
       const actual = store.get(path);
-      
+
       if (!Array.isArray(actual)) {
         throw new Error(`Expected ${path} to be an array`);
       }
-      
+
       if (actual.length !== expectedLength) {
         throw new Error(`Expected ${path} to have length ${expectedLength}, got ${actual.length}`);
       }
-      
+
       return this;
     },
 
@@ -146,9 +146,9 @@ function validateShape(actual, shape, path) {
     if (!(key in actual)) {
       throw new Error(`Expected ${path} to have property ${key}`);
     }
-    
+
     const actualValue = actual[key];
-    
+
     // Handle nested objects
     if (typeof expectedType === 'object' && !Array.isArray(expectedType)) {
       validateShape(actualValue, expectedType, `${path}.${key}`);
@@ -178,10 +178,10 @@ export function test(name, fn) {
 // Run multiple tests
 export function runTests(tests) {
   console.log('\n🧪 Running tests...\n');
-  
+
   let passed = 0;
   let failed = 0;
-  
+
   for (const [name, fn] of Object.entries(tests)) {
     if (test(name, fn)) {
       passed++;
@@ -189,8 +189,8 @@ export function runTests(tests) {
       failed++;
     }
   }
-  
+
   console.log(`\n📊 Results: ${passed} passed, ${failed} failed\n`);
-  
+
   return { passed, failed };
 }
